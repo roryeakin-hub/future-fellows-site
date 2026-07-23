@@ -1,0 +1,339 @@
+/* Future Fellows — joinfellows.org
+   Palette: white ground, navy ink, teal accent.
+   Type: Playfair Display (display) / Source Serif 4 (body) / Inter (utility) */
+
+:root {
+  --bg: #FFFFFF;
+  --bg-2: #F3F7F9;
+  --ink: #0B1626;
+  --muted: #51627A;
+  --teal: #1FBFA5;
+  --teal-text: #0E8A75;
+  --teal-soft: rgba(31, 191, 165, 0.10);
+  --hairline: rgba(11, 22, 38, 0.14);
+  --measure: 66ch;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--teal); color: var(--ink); }
+
+a { color: var(--teal-text); text-decoration-color: rgba(14,138,117,.4); text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--teal-text); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--teal-text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.wordmark {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.wordmark span { color: var(--teal); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.85rem;
+}
+.nav-links a { color: var(--muted); text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); }
+
+.btn {
+  display: inline-block;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink) !important;
+  background: var(--teal);
+  padding: 0.6rem 1.15rem;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 140ms ease;
+}
+.btn:hover { background: #2bd6ba; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--teal-text) !important;
+  border: 1px solid var(--teal-text);
+}
+.btn-ghost:hover { background: var(--teal-soft); }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: clamp(5rem, 12vh, 9rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 7vh, 5rem);
+  text-align: left;
+}
+
+.eyebrow {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-text);
+  margin-bottom: 1.4rem;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5.5vw, 3.9rem);
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--teal-text);
+}
+
+.hero .dek {
+  margin-top: 1.6rem;
+  max-width: var(--measure);
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+.hero .cta-row { margin-top: 2.4rem; display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+/* ---------- Letter / prose ---------- */
+
+.prose {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 4rem;
+}
+
+.prose p { margin-bottom: 1.5rem; }
+
+.prose h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  line-height: 1.25;
+  margin: 3.2rem 0 1.2rem;
+}
+
+.prose h3 {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-text);
+  margin: 2.6rem 0 0.9rem;
+}
+
+.prose .break-line {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 2.4rem 0;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--teal);
+}
+
+.rule {
+  max-width: var(--measure);
+  margin: 3.5rem auto;
+  border: 0;
+  border-top: 1px solid var(--hairline);
+}
+
+/* Beliefs */
+
+.beliefs { list-style: none; margin: 2rem 0; }
+.beliefs li {
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--hairline);
+}
+.beliefs li:last-child { border-bottom: 1px solid var(--hairline); }
+.beliefs .belief-name {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-text);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* Signature */
+
+.signature {
+  margin-top: 3rem;
+}
+.signature .sig-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 1.7rem;
+  color: var(--ink);
+}
+.signature .sig-role {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+/* ---------- Two-audience split ---------- */
+
+.split {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.split .panel {
+  background: var(--bg-2);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.split .panel h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.55rem;
+  margin: 0.6rem 0 0.9rem;
+}
+
+.split .panel p { color: var(--muted); margin-bottom: 1.6rem; flex-grow: 1; }
+
+@media (max-width: 720px) {
+  .split { grid-template-columns: 1fr; }
+}
+
+/* ---------- Detail pages ---------- */
+
+.page-hero {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 10vh, 7rem) clamp(1.25rem, 4vw, 3rem) 2rem;
+}
+.page-hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  line-height: 1.16;
+}
+.page-hero .dek { margin-top: 1.3rem; max-width: var(--measure); color: var(--muted); font-size: 1.15rem; }
+
+.steps { list-style: none; margin: 1.6rem 0 2.2rem; counter-reset: step; }
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 0 0 1.6rem 3.2rem;
+}
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--teal-text);
+}
+.steps li strong { display: block; font-family: "Inter", system-ui, sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.01em; margin-bottom: 0.25rem; }
+.steps li span { color: var(--muted); font-size: 1.05rem; }
+
+.faq dt {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.98rem;
+  margin-top: 1.8rem;
+}
+.faq dd { color: var(--muted); margin-top: 0.5rem; }
+
+.cta-band {
+  max-width: var(--measure);
+  margin: 1rem auto 5rem;
+  padding: 2.4rem clamp(1.25rem, 4vw, 3rem);
+  border: 1px solid var(--teal-text);
+  border-radius: 6px;
+  background: var(--teal-soft);
+}
+.cta-band h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+.cta-band p { color: var(--muted); margin-bottom: 1.4rem; }
+
+/* ---------- Footer ---------- */
+
+footer {
+  border-top: 1px solid var(--hairline);
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 3rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+footer a { color: var(--muted); }
+footer a:hover { color: var(--ink); }
+
+/* ---------- Motion ---------- */
+
+.fade-in { animation: fadeUp 700ms ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fade-in { animation: none; }
+}
