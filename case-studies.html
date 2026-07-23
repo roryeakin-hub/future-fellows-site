@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case Studies — Future Fellows</title>
+<meta name="description" content="Real, external examples of young people already doing capability-demonstrating work — proof of what's possible when talented young people are made visible.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<script src="/case-studies-data.js"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="wordmark" href="/">Future Fellows<span>.</span></a>
+  <div class="nav-links">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a class="btn" href="/students.html#apply">Apply as a Fellow</a>
+  </div>
+</nav>
+
+<header class="page-hero fade-in">
+  <p class="eyebrow">Case studies</p>
+  <h1>We know great work is already happening.</h1>
+  <p class="dek">We didn&rsquo;t create these outcomes. We exist to make more of them possible.</p>
+</header>
+
+<div class="cs-checkpoint-note">
+  <p>Preview build &mdash; not linked from the live site. Ruhan Khanna's entry is real, consented content. The other two cards are still placeholders.</p>
+</div>
+
+<section class="cs-grid" id="cs-grid" aria-label="Case studies"></section>
+
+<div class="cs-modal-overlay" id="cs-modal-overlay">
+  <div class="cs-modal" role="dialog" aria-modal="true" aria-labelledby="cs-modal-title">
+    <button class="cs-modal-close" id="cs-modal-close" aria-label="Close">&#10005;</button>
+    <p class="eyebrow" id="cs-modal-eyebrow"></p>
+    <h2 id="cs-modal-title"></h2>
+    <div id="cs-modal-body"></div>
+  </div>
+</div>
+
+<footer>
+  <div>Future Fellows Inc. &middot; a California public benefit corporation</div>
+  <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+</footer>
+
+<script>
+  // Real entries live in /case-studies-data.js (loaded above). This preview-only
+  // flag marks entries whose consent hasn't been confirmed yet — add an id
+  // here (and to the checkpoint note above) if a future entry needs it.
+  const PENDING_CONSENT = new Set([]);
+  const PLACEHOLDER_IDS = new Set(["sample-two", "sample-three"]);
+
+  function initials(name) {
+    return name.trim().split(/\s+/).map(p => p[0] || "").join("").slice(0, 2).toUpperCase();
+  }
+
+  const linkedinIcon = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>`;
+  const arrowIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+
+  const isTouch = window.matchMedia("(hover: none)").matches;
+  const grid = document.getElementById("cs-grid");
+
+  CASE_STUDIES.forEach(entry => {
+    const card = document.createElement("div");
+    card.className = "cs-card";
+    card.tabIndex = 0;
+    card.setAttribute("role", "group");
+    card.setAttribute("aria-label", `${entry.name} — ${entry.tagline}`);
+
+    const flagLabel = PENDING_CONSENT.has(entry.id) ? "Draft — pending consent"
+      : PLACEHOLDER_IDS.has(entry.id) ? "Sample data"
+      : null;
+    const photoInner = entry.photo
+      ? `<img src="${entry.photo}" alt="" onerror="this.parentElement.textContent='${initials(entry.name)}';">`
+      : initials(entry.name);
+
+    card.innerHTML = `
+      <div class="cs-card-inner">
+        <div class="cs-face cs-face-front">
+          ${flagLabel ? `<span class="cs-sample-flag">${flagLabel}</span>` : ""}
+          <div class="cs-photo">${photoInner}</div>
+          <div class="cs-front-body">
+            <div>
+              <h3>${entry.name}</h3>
+              <p>${entry.tagline}</p>
+            </div>
+            <a class="cs-linkedin" href="${entry.linkedin_url}" target="_blank" rel="noopener" aria-label="${entry.name} on LinkedIn">${linkedinIcon}</a>
+          </div>
+        </div>
+        <div class="cs-face cs-face-back">
+          <div class="cs-back-body">
+            <p class="cs-back-name">${entry.name}</p>
+            <p class="cs-short">${entry.short_description}</p>
+            <button class="cs-readmore" type="button">Read more ${arrowIcon}</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // LinkedIn link: never let it double as the tap-to-flip toggle underneath it.
+    card.querySelector(".cs-linkedin").addEventListener("click", e => e.stopPropagation());
+
+    // Read More: open modal, and never let it double as a flip-toggle tap.
+    card.querySelector(".cs-readmore").addEventListener("click", e => {
+      e.stopPropagation();
+      openModal(entry);
+    });
+
+    // Touch fallback: tap anywhere else on the card toggles the flip (no :hover on touch).
+    if (isTouch) {
+      card.addEventListener("click", () => card.classList.toggle("is-flipped"));
+    }
+
+    // Keyboard: Enter/Space on the card itself (not its inner controls) toggles flip.
+    card.addEventListener("keydown", e => {
+      if (e.target !== card) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        card.classList.toggle("is-flipped");
+      }
+    });
+
+    grid.appendChild(card);
+  });
+
+  // ---------- modal ----------
+  const overlay = document.getElementById("cs-modal-overlay");
+  const modalEyebrow = document.getElementById("cs-modal-eyebrow");
+  const modalTitle = document.getElementById("cs-modal-title");
+  const modalBody = document.getElementById("cs-modal-body");
+  const modalClose = document.getElementById("cs-modal-close");
+  let lastFocused = null;
+
+  function openModal(entry) {
+    modalEyebrow.textContent = entry.tagline;
+    modalTitle.textContent = entry.name;
+    modalBody.innerHTML = entry.long_description
+      .split(/\n\s*\n/)
+      .map(p => `<p>${p.trim()}</p>`)
+      .join("");
+    lastFocused = document.activeElement;
+    overlay.classList.add("is-open");
+    modalClose.focus();
+    document.addEventListener("keydown", onKeydown);
+  }
+
+  function closeModal() {
+    overlay.classList.remove("is-open");
+    document.removeEventListener("keydown", onKeydown);
+    if (lastFocused) lastFocused.focus();
+  }
+
+  function onKeydown(e) {
+    if (e.key === "Escape") closeModal();
+  }
+
+  modalClose.addEventListener("click", closeModal);
+  overlay.addEventListener("click", e => {
+    if (e.target === overlay) closeModal(); // click-outside-to-close
+  });
+</script>
+
+</body>
+</html>

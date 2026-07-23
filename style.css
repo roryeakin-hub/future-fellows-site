@@ -326,6 +326,243 @@ footer {
 footer a { color: var(--muted); }
 footer a:hover { color: var(--ink); }
 
+/* ---------- Case studies ---------- */
+
+.cs-grid {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+@media (min-width: 900px) {
+  .cs-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.cs-card {
+  position: relative;
+  perspective: 1600px;
+  aspect-ratio: 3 / 4;
+}
+.cs-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 550ms ease;
+  border-radius: 6px;
+}
+.cs-card:focus-visible { outline: none; }
+.cs-card:focus-visible .cs-card-inner { outline: 2px solid var(--teal-text); outline-offset: 3px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .cs-card:hover .cs-card-inner,
+  .cs-card:focus-within .cs-card-inner { transform: rotateY(180deg); }
+}
+.cs-card.is-flipped .cs-card-inner { transform: rotateY(180deg); }
+
+.cs-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+.cs-face-back {
+  transform: rotateY(180deg);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.cs-photo {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-2);
+  color: var(--teal-text);
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 2.6rem;
+}
+.cs-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.cs-front-body {
+  flex: 0 0 auto;
+  padding: 1.1rem 1.25rem 1.25rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid var(--hairline);
+}
+.cs-front-body h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0 0 0.25rem;
+}
+.cs-front-body p {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.cs-linkedin {
+  flex: 0 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--teal-soft);
+  color: var(--teal-text);
+  transition: background 140ms ease, color 140ms ease;
+}
+.cs-linkedin:hover { background: var(--teal); color: var(--ink); }
+.cs-linkedin svg { width: 1rem; height: 1rem; }
+
+.cs-back-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 1.6rem 1.4rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+}
+.cs-back-body .cs-back-name {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 0.75rem;
+}
+.cs-back-body p.cs-short {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+.cs-readmore {
+  margin-top: 1rem;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--teal);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.cs-readmore:hover { color: #fff; }
+.cs-readmore svg { width: 0.85rem; height: 0.85rem; transition: transform 140ms ease; }
+.cs-readmore:hover svg { transform: translateX(3px); }
+
+/* Case study "read more" modal */
+.cs-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 22, 38, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+.cs-modal-overlay.is-open { opacity: 1; pointer-events: auto; }
+.cs-modal {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  max-width: 34rem;
+  width: 100%;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 2.4rem 2.4rem 2.1rem;
+  position: relative;
+}
+.cs-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: var(--teal-soft);
+  color: var(--ink);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cs-modal-close:hover { background: var(--teal); }
+.cs-modal .eyebrow { margin-bottom: 0.5rem; }
+.cs-modal h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin: 0 0 1.1rem;
+}
+.cs-modal p {
+  font-size: 1.05rem;
+  margin-bottom: 0.9rem;
+}
+.cs-modal p:last-child { margin-bottom: 0; }
+
+.cs-checkpoint-note {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 1rem;
+}
+.cs-checkpoint-note p {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border: 1px dashed var(--hairline);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+}
+
+.cs-sample-flag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--hairline);
+  color: var(--teal-text);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.55rem;
+  border-radius: 100px;
+}
+
 /* ---------- Motion ---------- */
 
 .fade-in { animation: fadeUp 700ms ease both; }
