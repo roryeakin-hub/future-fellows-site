@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team — Future Fellows</title>
+<meta name="description" content="The people building Future Fellows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<script src="/team-data.js"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="wordmark" href="/">Future Fellows<span>.</span></a>
+  <div class="nav-links">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a class="btn" href="/students.html#apply">Apply as a Fellow</a>
+  </div>
+</nav>
+
+<header class="page-hero fade-in">
+  <p class="eyebrow">Team</p>
+  <h1>Building Better Career Onramps.</h1>
+  <p class="dek">We are optimists, building our team with emerging talent.</p>
+</header>
+
+<div class="cs-checkpoint-note">
+  <p>Preview build &mdash; not linked from the live site. Ruhan Khanna's and the "You?" card's bios are placeholders, pending final copy.</p>
+</div>
+
+<section class="cs-grid" id="team-grid" aria-label="Team"></section>
+
+<footer>
+  <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
+  <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+</footer>
+
+<script>
+  // Real entries live in /team-data.js (loaded above). Consistent with
+  // case-studies.html's pattern — add an id here if a future entry isn't
+  // ready to be treated as final.
+  const PLACEHOLDER_IDS = new Set([]);
+  const BIO_PENDING_IDS = new Set(["ruhan-khanna", "you"]);
+
+  function initials(name) {
+    return name.trim().split(/\s+/).map(p => p[0] || "").join("").slice(0, 2).toUpperCase();
+  }
+
+  const linkedinIcon = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>`;
+
+  const isTouch = window.matchMedia("(hover: none)").matches;
+  const grid = document.getElementById("team-grid");
+
+  TEAM.forEach(entry => {
+    const card = document.createElement("div");
+    card.className = "cs-card";
+    card.tabIndex = 0;
+    card.setAttribute("role", "group");
+    card.setAttribute("aria-label", `${entry.name} — ${entry.role}`);
+
+    const flagLabel = PLACEHOLDER_IDS.has(entry.id) ? "Sample data"
+      : BIO_PENDING_IDS.has(entry.id) ? "Bio pending"
+      : null;
+    const photoInner = entry.photo
+      ? `<img src="${entry.photo}" alt="" onerror="this.parentElement.textContent='${initials(entry.name)}';">`
+      : initials(entry.name);
+    const linkedinInner = entry.linkedin_url
+      ? `<a class="cs-linkedin" href="${entry.linkedin_url}" target="_blank" rel="noopener" aria-label="${entry.name} on LinkedIn">${linkedinIcon}</a>`
+      : "";
+
+    card.innerHTML = `
+      <div class="cs-card-inner">
+        <div class="cs-face cs-face-front">
+          ${flagLabel ? `<span class="cs-sample-flag">${flagLabel}</span>` : ""}
+          <div class="cs-photo">${photoInner}</div>
+          <div class="cs-front-body">
+            <div>
+              <h3>${entry.name}</h3>
+              <p>${entry.role}</p>
+            </div>
+            ${linkedinInner}
+          </div>
+        </div>
+        <div class="cs-face cs-face-back">
+          <div class="cs-back-body">
+            <p class="cs-back-name">${entry.name}</p>
+            <p class="cs-short">${entry.bio}</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // LinkedIn link: never let it double as the tap-to-flip toggle underneath it.
+    // (Some entries, like the "You?" card, have no LinkedIn link by design.)
+    const linkedinEl = card.querySelector(".cs-linkedin");
+    if (linkedinEl) linkedinEl.addEventListener("click", e => e.stopPropagation());
+
+    // Touch fallback: tap anywhere else on the card toggles the flip (no :hover on touch).
+    if (isTouch) {
+      card.addEventListener("click", () => card.classList.toggle("is-flipped"));
+    }
+
+    // Keyboard: Enter/Space on the card itself (not its inner controls) toggles flip.
+    card.addEventListener("keydown", e => {
+      if (e.target !== card) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        card.classList.toggle("is-flipped");
+      }
+    });
+
+    grid.appendChild(card);
+  });
+</script>
+
+</body>
+</html>

@@ -358,7 +358,10 @@ footer a:hover { color: var(--ink); }
 
 @media (hover: hover) and (pointer: fine) {
   .cs-card:hover .cs-card-inner,
-  .cs-card:focus-within .cs-card-inner { transform: rotateY(180deg); }
+  .cs-card:focus-within .cs-card-inner {
+    transition-delay: 760ms;
+    transform: rotateY(180deg);
+  }
 }
 .cs-card.is-flipped .cs-card-inner { transform: rotateY(180deg); }
 
