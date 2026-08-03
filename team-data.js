@@ -33,7 +33,7 @@ const TEAM = [
     role: "Intern",
     photo: "/photos/ruhan-khanna.jpg",
     linkedin_url: "https://www.linkedin.com/in/ruhan-khanna-rk18/",
-    bio: "Bio pending — Rory to write."
+    bio: "Ruhan split his summer in 2026 to help build the first version of the Future Fellows screening application. His deep experience building agents and his passion for our mission helped shape the direction of our application process \u2014 he focused on ensuring a meritocratic and flexible scoring system, enabling a wide variety of talents and backgrounds to come through successfully. His own path into professional work is featured in our case studies. As he returns to being a full-time student in his senior year of high school, Ruhan will continue to advise and support this work."
   },
 
   // Not a real person — a recruiting card inviting visitors to picture themselves
@@ -45,7 +45,7 @@ const TEAM = [
     role: "Join the team",
     photo: "/photos/you-logo.jpg",
     linkedin_url: "",
-    bio: "Bio pending — Rory to write."
+    bio: "If you are a Builder, a Researcher, or an Artist \u2014 particularly if you are a full-time student aged 16\u201322 and share our goals for a more open and efficient market for talent like you \u2014 please reach out. We are continually investing in our processes and systems to ensure great outcomes from our matches, and ongoing support for the talent and the employers beyond the initial Fellowship program. Contact us at info@joinfellows.org"
   }
 
 ];

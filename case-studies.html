@@ -32,10 +32,6 @@
   <p class="dek">We didn&rsquo;t create these outcomes. We exist to make more of them possible.</p>
 </header>
 
-<div class="cs-checkpoint-note">
-  <p>Preview build &mdash; not linked from the live site. Ruhan Khanna's entry is real, consented content. The other two cards are still placeholders.</p>
-</div>
-
 <section class="cs-grid" id="cs-grid" aria-label="Case studies"></section>
 
 <div class="cs-modal-overlay" id="cs-modal-overlay">
@@ -44,12 +40,21 @@
     <p class="eyebrow" id="cs-modal-eyebrow"></p>
     <h2 id="cs-modal-title"></h2>
     <div id="cs-modal-body"></div>
+    <p class="cs-modal-disclosure" id="cs-modal-disclosure"></p>
   </div>
 </div>
 
 <footer>
-  <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
-  <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+  <nav class="footer-nav" aria-label="Secondary">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a class="active" href="/case-studies.html">Case studies</a>
+    <a href="/team.html">Team</a>
+  </nav>
+  <div class="footer-meta">
+    <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
+    <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+  </div>
 </footer>
 
 <script>
@@ -57,7 +62,7 @@
   // flag marks entries whose consent hasn't been confirmed yet — add an id
   // here (and to the checkpoint note above) if a future entry needs it.
   const PENDING_CONSENT = new Set([]);
-  const PLACEHOLDER_IDS = new Set(["sample-two", "sample-three"]);
+  const PLACEHOLDER_IDS = new Set([]);
 
   function initials(name) {
     return name.trim().split(/\s+/).map(p => p[0] || "").join("").slice(0, 2).toUpperCase();
@@ -68,6 +73,7 @@
 
   const isTouch = window.matchMedia("(hover: none)").matches;
   const grid = document.getElementById("cs-grid");
+  grid.dataset.count = String(Math.min(CASE_STUDIES.length, 3));
 
   CASE_STUDIES.forEach(entry => {
     const card = document.createElement("div");
@@ -137,6 +143,7 @@
   const modalEyebrow = document.getElementById("cs-modal-eyebrow");
   const modalTitle = document.getElementById("cs-modal-title");
   const modalBody = document.getElementById("cs-modal-body");
+  const modalDisclosure = document.getElementById("cs-modal-disclosure");
   const modalClose = document.getElementById("cs-modal-close");
   let lastFocused = null;
 
@@ -147,6 +154,8 @@
       .split(/\n\s*\n/)
       .map(p => `<p>${p.trim()}</p>`)
       .join("");
+    modalDisclosure.textContent = entry.disclosure || "";
+    modalDisclosure.style.display = entry.disclosure ? "" : "none";
     lastFocused = document.activeElement;
     overlay.classList.add("is-open");
     modalClose.focus();

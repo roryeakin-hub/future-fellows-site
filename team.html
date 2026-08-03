@@ -32,15 +32,19 @@
   <p class="dek">We are optimists, building our team with emerging talent.</p>
 </header>
 
-<div class="cs-checkpoint-note">
-  <p>Preview build &mdash; not linked from the live site. Ruhan Khanna's and the "You?" card's bios are placeholders, pending final copy.</p>
-</div>
-
 <section class="cs-grid" id="team-grid" aria-label="Team"></section>
 
 <footer>
-  <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
-  <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+  <nav class="footer-nav" aria-label="Secondary">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a href="/case-studies.html">Case studies</a>
+    <a class="active" href="/team.html">Team</a>
+  </nav>
+  <div class="footer-meta">
+    <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
+    <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+  </div>
 </footer>
 
 <script>
@@ -48,7 +52,7 @@
   // case-studies.html's pattern — add an id here if a future entry isn't
   // ready to be treated as final.
   const PLACEHOLDER_IDS = new Set([]);
-  const BIO_PENDING_IDS = new Set(["ruhan-khanna", "you"]);
+  const BIO_PENDING_IDS = new Set([]);
 
   function initials(name) {
     return name.trim().split(/\s+/).map(p => p[0] || "").join("").slice(0, 2).toUpperCase();
@@ -58,6 +62,7 @@
 
   const isTouch = window.matchMedia("(hover: none)").matches;
   const grid = document.getElementById("team-grid");
+  grid.dataset.count = String(Math.min(TEAM.length, 3));
 
   TEAM.forEach(entry => {
     const card = document.createElement("div");

@@ -11,6 +11,9 @@ Static HTML/CSS, no build step, no framework, no dependencies.
 - `index.html` — homepage (founder letter)
 - `students.html` — for students
 - `employers.html` — for employers
+- `case-studies.html` — case studies (data in `case-studies-data.js`)
+- `team.html` — team and advisors (data in `team-data.js`)
+- `photos/` — headshots referenced by the two data files
 - `style.css` — shared stylesheet (white ground / navy ink / teal accent;
   Playfair Display, Source Serif 4, Inter)
 
@@ -23,6 +26,21 @@ Open any `.html` file directly in a browser — no server needed.
 Connected to Vercel (project: `future-fellows-site`, team:
 `roryeakin-7700s-projects`). Pushes to `main` auto-deploy to production at
 joinfellows.org.
+
+## Adding content
+
+Case studies and team members are plain JS arrays — `case-studies-data.js` and
+`team-data.js`. Each has a commented-out template entry at the top; copy it,
+fill it in, commit. No build step, no admin UI.
+
+Written consent must be confirmed before any real person's entry goes live.
+Consent is tracked separately and is never a field on the entry itself. Where a
+subject has a relationship with Future Fellows that a reader would want to know
+about, put it in the optional `disclosure` field — it renders as a note at the
+foot of the Read More popout.
+
+Secondary navigation (Case studies, Team) lives in the footer on every page;
+the top nav is reserved for the students/employers fork and the primary CTA.
 
 ## Copy conventions
 
