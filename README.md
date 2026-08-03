@@ -49,5 +49,9 @@ the top nav is reserved for the students/employers fork and the primary CTA.
   ("Future Fellows Inc. · a California public benefit corporation")
 - No invented anecdotes or fabricated proof points
 - No bare "AI" as a category noun — use "AI implementation"
+- Two taxonomies, split by audience. Student-facing surfaces describe *people*
+  — Builders, Researchers, Artists. Employer-facing surfaces describe *work* —
+  research, marketing, AI implementation. Don't swap one for the other:
+  applicants self-select into an identity, employers buy a deliverable.
 - No stated project duration commitments
 - Contact: info@joinfellows.org

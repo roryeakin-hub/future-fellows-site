@@ -580,6 +580,11 @@ footer a:hover { color: var(--ink); }
   padding: 0.75rem 1rem;
 }
 
+.cs-source-flag {
+  background: var(--teal-soft);
+  border-color: transparent;
+}
+
 .cs-sample-flag {
   position: absolute;
   top: 0.75rem;

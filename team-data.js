@@ -33,7 +33,7 @@ const TEAM = [
     role: "Intern",
     photo: "/photos/ruhan-khanna.jpg",
     linkedin_url: "https://www.linkedin.com/in/ruhan-khanna-rk18/",
-    bio: "Ruhan split his summer in 2026 to help build the first version of the Future Fellows screening application. His deep experience building agents and his passion for our mission helped shape the direction of our application process \u2014 he focused on ensuring a meritocratic and flexible scoring system, enabling a wide variety of talents and backgrounds to come through successfully. His own path into professional work is featured in our case studies. As he returns to being a full-time student in his senior year of high school, Ruhan will continue to advise and support this work."
+    bio: "Ruhan is not only one of the first Fellows we placed in an external organization (see Case Studies), he also split his summer in 2026 to help build the first version of the Future Fellows screening application. His deep experience building agents and his passion for our mission helped shape the direction of our application process \u2014 he focused on ensuring a meritocratic and flexible scoring system, enabling a wide variety of talents and backgrounds to come through successfully. As he returns to being a full-time student in his senior year of high school, Ruhan will continue to advise and support this work."
   },
 
   // Not a real person — a recruiting card inviting visitors to picture themselves

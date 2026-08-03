@@ -29,7 +29,7 @@
 <header class="page-hero fade-in">
   <p class="eyebrow">Case studies</p>
   <h1>We know great work is already happening.</h1>
-  <p class="dek">We didn&rsquo;t create these outcomes. We exist to make more of them possible.</p>
+  <p class="dek">Some of it we helped make. Some of it we simply admire. All of it is proof of what young people do when someone hands them real work.</p>
 </header>
 
 <section class="cs-grid" id="cs-grid" aria-label="Case studies"></section>
@@ -84,6 +84,7 @@
 
     const flagLabel = PENDING_CONSENT.has(entry.id) ? "Draft — pending consent"
       : PLACEHOLDER_IDS.has(entry.id) ? "Sample data"
+      : entry.source === "future_fellows" ? "Future Fellows placement"
       : null;
     const photoInner = entry.photo
       ? `<img src="${entry.photo}" alt="" onerror="this.parentElement.textContent='${initials(entry.name)}';">`
@@ -92,7 +93,7 @@
     card.innerHTML = `
       <div class="cs-card-inner">
         <div class="cs-face cs-face-front">
-          ${flagLabel ? `<span class="cs-sample-flag">${flagLabel}</span>` : ""}
+          ${flagLabel ? `<span class="cs-sample-flag${entry.source === "future_fellows" && !PENDING_CONSENT.has(entry.id) && !PLACEHOLDER_IDS.has(entry.id) ? " cs-source-flag" : ""}">${flagLabel}</span>` : ""}
           <div class="cs-photo">${photoInner}</div>
           <div class="cs-front-body">
             <div>
