@@ -55,5 +55,9 @@ the top nav is reserved for the students/employers fork and the primary CTA.
   concrete deliverables (market maps, agent design, campaign execution) inside
   each archetype's description on the employers page; an employer needs to know
   what actually arrives, not just who makes it.
+- People vs. projects. The archetypes name *people*. The founder letter and the
+  students page still describe *projects* as "research, marketing, and AI
+  implementation" — that is a deliberate call, not a leftover. Don't "fix" it
+  by swapping the archetypes in.
 - No stated project duration commitments
 - Contact: info@joinfellows.org
