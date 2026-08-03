@@ -6,32 +6,24 @@
 <title>Apply — Future Fellows</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<!-- Shared site stylesheet loaded FIRST so its :root, body, nav, footer, .btn,
+     .eyebrow rules apply; page-specific styles below intentionally override
+     only where needed. Do not redefine :root/body/.eyebrow/footer/.btn here —
+     those are owned by /style.css for cross-page consistency. -->
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <style>
-:root {
-  --bg: #FFFFFF;
-  --bg-2: #F3F7F9;
-  --ink: #0B1626;
-  --muted: #51627A;
-  --teal: #1FBFA5;
-  --teal-text: #0E8A75;
-  --teal-soft: rgba(31, 191, 165, 0.10);
-  --hairline: rgba(11, 22, 38, 0.14);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: "Source Serif 4", Georgia, serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--teal-text); }
+/* Page-specific styles for the apply flow only. Shared tokens (colors,
+   body type, nav, footer, .btn, .eyebrow) come from /style.css above. */
 
 .wrap {
   max-width: 680px;
   margin: 0 auto;
-  padding: 5rem 1.5rem 6rem;
+  padding: clamp(3rem, 8vh, 5rem) clamp(1.25rem, 4vw, 1.5rem) 5rem;
 }
 
 /* ---------- stage visibility: only the active stage is shown ---------- */
@@ -77,16 +69,7 @@ iframe[data-tally-src] {
   padding: 2rem 0;
 }
 
-/* ---------- shared: thank-you stage (lifted verbatim from thank-you.html) ---------- */
-.eyebrow {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--teal-text);
-  margin-bottom: 1rem;
-}
+/* ---------- thank-you stage (.eyebrow + footer inherit from /style.css) ---------- */
 h1 {
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 600;
@@ -168,17 +151,19 @@ h1 {
   font-size: 0.92rem;
   color: var(--muted);
 }
-footer {
-  margin-top: 4rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--hairline);
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.78rem;
-  color: var(--muted);
-}
+/* footer styling inherited from /style.css */
 </style>
 </head>
 <body>
+
+<nav class="nav">
+  <a class="wordmark" href="/">Future Fellows<span>.</span></a>
+  <div class="nav-links">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a class="btn" href="/apply.html">Apply<span class="btn-tail"> now</span></a>
+  </div>
+</nav>
 
 <div class="wrap">
 
@@ -345,13 +330,24 @@ footer {
 
       </ul>
     </div>
-
-    <footer>
-      Future Fellows Inc. &middot; a California public benefit corporation
-    </footer>
   </section>
 
-</div>
+</div><!-- /.wrap -->
+
+<!-- Shared site footer — constant chrome, shown across all stages.
+     Markup and legal string match the other pages exactly. -->
+<footer>
+  <nav class="footer-nav" aria-label="Secondary">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a href="/case-studies.html">Case studies</a>
+    <a href="/team.html">Team</a>
+  </nav>
+  <div class="footer-meta">
+    <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
+    <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+  </div>
+</footer>
 
 <!-- ================================================================= -->
 <!-- STAGE CONTROLLER                                                   -->
