@@ -49,9 +49,11 @@ the top nav is reserved for the students/employers fork and the primary CTA.
   ("Future Fellows Inc. · a California public benefit corporation")
 - No invented anecdotes or fabricated proof points
 - No bare "AI" as a category noun — use "AI implementation"
-- Two taxonomies, split by audience. Student-facing surfaces describe *people*
-  — Builders, Researchers, Artists. Employer-facing surfaces describe *work* —
-  research, marketing, AI implementation. Don't swap one for the other:
-  applicants self-select into an identity, employers buy a deliverable.
+- One taxonomy site-wide: Builders, Researchers, Artists. Both audiences see
+  the same three, framed for their job — students read them as an identity to
+  self-select into, employers read them as capabilities to buy. Keep the
+  concrete deliverables (market maps, agent design, campaign execution) inside
+  each archetype's description on the employers page; an employer needs to know
+  what actually arrives, not just who makes it.
 - No stated project duration commitments
 - Contact: info@joinfellows.org
