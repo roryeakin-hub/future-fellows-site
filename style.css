@@ -252,6 +252,22 @@ a:focus-visible, button:focus-visible {
   .split { grid-template-columns: 1fr; }
 }
 
+/* Small screens: the top nav keeps identity + the page's primary CTA only.
+   The secondary links live in the footer on every page, so nothing is
+   stranded -- and the nav is sticky, so every row it saves is screen the
+   reader keeps for the whole page. */
+@media (max-width: 640px) {
+  .nav-links a:not(.btn) { display: none; }
+}
+
+/* Below ~360px (older iPhone SE, folded Galaxy) the wordmark and a full-length
+   CTA still don't fit on one row. Shorten the label rather than shrinking the
+   button -- the tap target stays full size. */
+@media (max-width: 379px) {
+  .nav { padding-left: 1rem; padding-right: 1rem; }
+  .nav-links .btn-tail { display: none; }
+}
+
 /* ---------- Detail pages ---------- */
 
 .page-hero {
