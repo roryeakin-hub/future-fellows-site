@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply — Future Fellows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<!-- Shared site stylesheet loaded FIRST so its :root, body, nav, footer, .btn,
+     .eyebrow rules apply; page-specific styles below intentionally override
+     only where needed. Do not redefine :root/body/.eyebrow/footer/.btn here —
+     those are owned by /style.css for cross-page consistency. -->
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+/* Page-specific styles for the apply flow only. Shared tokens (colors,
+   body type, nav, footer, .btn, .eyebrow) come from /style.css above. */
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vh, 5rem) clamp(1.25rem, 4vw, 1.5rem) 5rem;
+}
+
+/* ---------- stage visibility: only the active stage is shown ---------- */
+.stage { display: none; }
+.stage.is-active { display: block; }
+
+/* ---------- form stage ---------- */
+.form-intro { margin-bottom: 2.5rem; }
+.form-intro .eyebrow {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-text);
+  margin-bottom: 1rem;
+}
+.form-intro h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.form-intro p {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+/* Tally iframe: transparent + dynamic height come from the embed params;
+   this just removes default iframe chrome and lets it span the column. */
+iframe[data-tally-src] {
+  width: 100%;
+  border: 0;
+  margin: 0;
+}
+
+/* Simple loading state shown until the Tally embed initializes. */
+.form-loading {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 2rem 0;
+}
+
+/* ---------- thank-you stage (.eyebrow + footer inherit from /style.css) ---------- */
+h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+}
+.lede {
+  font-size: 1.15rem;
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+}
+.section { margin-bottom: 2.75rem; }
+.section h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.9rem;
+}
+.section p { font-size: 1.02rem; color: var(--ink); }
+.section p + p { margin-top: 0.9rem; }
+.next-steps {
+  background: var(--bg-2);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 1.6rem 1.7rem;
+}
+.next-steps ol { padding-left: 1.2rem; margin-top: 0.8rem; }
+.next-steps li { margin-bottom: 0.6rem; }
+.next-steps li:last-child { margin-bottom: 0; }
+.contact-line {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 1.1rem;
+}
+.contact-line a { font-weight: 600; }
+.honesty-note { border-left: 3px solid var(--teal); padding-left: 1.2rem; }
+.reading { border-top: 1px solid var(--hairline); padding-top: 2.5rem; }
+.reading h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+.reading .reading-sub {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.reading-list { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
+.reading-list li {
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  transition: border-color 150ms ease;
+}
+.reading-list li:hover { border-color: var(--teal); }
+.reading-list a.title-link {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.reading-list a.title-link:hover { color: var(--teal-text); }
+.reading-list .byline {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--teal-text);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.reading-list .desc {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+/* footer styling inherited from /style.css */
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="wordmark" href="/">Future Fellows<span>.</span></a>
+  <div class="nav-links">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a class="btn" href="/apply.html">Apply<span class="btn-tail"> now</span></a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================================================= -->
+  <!-- STAGE 1 — TALLY INTAKE FORM                                    -->
+  <!-- ============================================================= -->
+  <!--
+    Today this single Tally form includes the track-selection question
+    (Builder / Researcher / Artist) AND the rest of intake.
+
+    FUTURE SPLIT (when Ruhan's Builder assessment is ready):
+    This one form splits into TWO Tally forms —
+      • Form 1 = general fields THROUGH the track question.
+      • Form 2 = the rest of intake.
+    The controller reads the track from Form 1's submission. If Builder,
+    it advances to STAGE 2 (Ruhan's assessment) BEFORE loading Form 2.
+    Non-Builders skip Stage 2 and go straight to Form 2, then thank-you.
+    To do that split, you swap the single data-tally-src below for the
+    Form 1 src, and load the Form 2 src into a second stage. The stage
+    machinery for that already exists below — see advanceFrom().
+  -->
+  <section class="stage is-active" id="stage-form" data-stage="form">
+    <div class="form-intro">
+      <div class="eyebrow">Apply</div>
+      <h1>Apply to Future Fellows</h1>
+      <p>A few questions to get started. Real people read every application.</p>
+    </div>
+
+    <div class="form-loading" id="form-loading">Loading the application…</div>
+
+    <iframe
+      data-tally-src="https://tally.so/embed/0QY896?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+      loading="lazy"
+      width="100%"
+      height="500"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      title="Future Fellows application"
+      id="tally-intake"></iframe>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- STAGE 2 — BUILDER SKILLS ASSESSMENT (Ruhan's agent) — STUBBED  -->
+  <!-- ============================================================= -->
+  <!--
+    ***  NOT YET LIVE. Currently a pass-through.  ***
+
+    This stage only ever runs for candidates whose selected track is
+    "Builder". Everyone else skips it. Right now, because intake is a
+    single combined form, this stage is never entered — the controller
+    goes form -> thank-you for all tracks. It is here so that wiring in
+    Ruhan's agent later is an un-stub, not a rearchitecture.
+
+    ---------------------------------------------------------------
+    HANDOFF CONTRACT (for Ruhan) — build against this interface:
+
+    Ruhan hosts his assessment as a standalone page/route in the same
+    Vercel project (e.g. /assess or similar). This container mounts it
+    in the iframe below and talks to it via postMessage.
+
+    ON ENTRY, the container posts to the assessment iframe:
+        {
+          source: "future-fellows-apply",
+          type: "assessment:init",
+          payload: {
+            candidateId: <string|null>,   // from Tally submission if available
+            track: "builder",
+            // plus any general Tally fields we choose to forward later
+          }
+        }
+      (Ruhan collects the GitHub URL himself inside his own UI — the
+       container does NOT pass it in.)
+
+    ON COMPLETION, Ruhan's page must post back to window.parent:
+        {
+          source: "future-fellows-assessment",  // REQUIRED, exact string
+          type: "assessment:complete",
+          payload: {
+            status: "complete",
+            result: <any>          // opaque to the container; Ruhan owns shape
+          }
+        }
+      The container ignores any message whose source !== the exact string
+      above (so it can't be spoofed by the Tally iframe or others).
+
+    On receiving assessment:complete, the container advances to thank-you.
+    ---------------------------------------------------------------
+  -->
+  <section class="stage" id="stage-builder" data-stage="builderAssessment">
+    <div class="form-intro">
+      <div class="eyebrow">Builder Track</div>
+      <h1>Skills assessment</h1>
+      <p>One more step for Builder applicants.</p>
+    </div>
+    <!--
+      When Ruhan is ready, drop his iframe in here, e.g.:
+      <iframe id="builder-assessment" src="/assess" ...></iframe>
+      and delete the stub notice below. The listener in the script
+      section already handles the postMessage completion.
+    -->
+    <div class="form-loading">Builder assessment stage (placeholder — not yet live).</div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- STAGE 3 — THANK YOU                                            -->
+  <!-- ============================================================= -->
+  <section class="stage" id="stage-thankyou" data-stage="thankyou">
+
+    <div class="eyebrow">Application Received</div>
+    <h1>Thank you for applying.</h1>
+    <p class="lede">We've received your application and it's now in our review queue.</p>
+
+    <div class="section next-steps">
+      <h2>What happens next</h2>
+      <ol>
+        <li>We review every application against our intake criteria across Skills, Agency, and Professionalism. This takes real time — we don't send instant decisions.</li>
+        <li>If there's a fit, we'll reach out directly by email to schedule a short conversation.</li>
+        <li>Qualified applicants join our bench — a pool we draw from when a specific, paid project with an employer partner becomes available for your track.</li>
+      </ol>
+      <p class="contact-line">Questions in the meantime? Reach Rory directly at <a href="mailto:info@joinfellows.org">info@joinfellows.org</a>.</p>
+    </div>
+
+    <div class="section honesty-note">
+      <h2>A note on where we are</h2>
+      <p>Future Fellows is early. We're building the employer side of this alongside the Fellow side, in parallel. That means the bench you're joining today may take time to convert into a matched project — we'd rather tell you that plainly than oversell where we are.</p>
+      <p>What that also means: if you're one of our first Fellows, you're not joining something already proven. You're helping prove it.</p>
+    </div>
+
+    <div class="reading">
+      <h2>While you wait</h2>
+      <p class="reading-sub">Five pieces we think are worth your time, regardless of what happens with your application.</p>
+      <ul class="reading-list">
+
+        <li>
+          <a class="title-link" href="https://paulgraham.com/hs.html" target="_blank" rel="noopener">What You'll Wish You'd Known</a>
+          <div class="byline">Paul Graham</div>
+          <div class="desc">A case against the standard "figure out your passion" advice — and for optionality instead, especially before you're forced to specialize.</div>
+        </li>
+
+        <li>
+          <a class="title-link" href="https://blog.samaltman.com/advice-for-ambitious-19-year-olds" target="_blank" rel="noopener">Advice for Ambitious 19 Year Olds</a>
+          <div class="byline">Sam Altman</div>
+          <div class="desc">A tactical framework for choosing between school, a company, or a startup — built from patterns across many people who asked him this exact question.</div>
+        </li>
+
+        <li>
+          <a class="title-link" href="https://freakonomics.com/podcast/bonus-nobel-laureate-claudia-goldin-on-greedy-work-and-the-wage-gap/" target="_blank" rel="noopener">Nobel Laureate Claudia Goldin on "Greedy Work" and the Wage Gap</a>
+          <div class="byline">Claudia Goldin — 2023 Nobel Laureate in Economics, on Freakonomics Radio</div>
+          <div class="desc">Why some employers pay disproportionately more for near-total availability — and what that means for which industries and roles to target early.</div>
+        </li>
+
+        <li>
+          <a class="title-link" href="https://calnewport.com/on-passion-and-its-discontents/" target="_blank" rel="noopener">On Passion and Its Discontents</a>
+          <div class="byline">Cal Newport</div>
+          <div class="desc">The tightest version of his "career capital" argument: build rare, valuable skills first — passion and autonomy follow, not the other way around.</div>
+        </li>
+
+        <li>
+          <a class="title-link" href="https://www.annieduke.com/big-think-when-to-quit-a-simple-framework-for-lifes-toughest-decisions/" target="_blank" rel="noopener">When to Quit: A Simple Framework for Life's Toughest Decisions</a>
+          <div class="byline">Annie Duke, on Big Think</div>
+          <div class="desc">Former pro poker player turned decision scientist on why "never quit" is bad advice — and a concrete framework for knowing when to walk away from a path.</div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+</div><!-- /.wrap -->
+
+<!-- Shared site footer — constant chrome, shown across all stages.
+     Markup and legal string match the other pages exactly. -->
+<footer>
+  <nav class="footer-nav" aria-label="Secondary">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a href="/case-studies.html">Case studies</a>
+    <a href="/team.html">Team</a>
+  </nav>
+  <div class="footer-meta">
+    <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
+    <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+  </div>
+</footer>
+
+<!-- ================================================================= -->
+<!-- STAGE CONTROLLER                                                   -->
+<!-- ================================================================= -->
+<script>
+(function () {
+  "use strict";
+
+  // ---- shared state, persists across stages in memory ----
+  var state = {
+    candidateId: null,   // populated from Tally submission payload if present
+    track: null,         // "builder" | "researcher" | "artist" | ...
+    tallyPayload: null,  // raw Tally submission payload, for later use
+    assessmentResult: null
+  };
+
+  // ---- stage registry ----
+  var stages = {
+    form:               document.getElementById("stage-form"),
+    builderAssessment:  document.getElementById("stage-builder"),
+    thankyou:           document.getElementById("stage-thankyou")
+  };
+
+  function showStage(name) {
+    Object.keys(stages).forEach(function (key) {
+      stages[key].classList.toggle("is-active", key === name);
+    });
+    // Scroll to top so each new stage starts at the top of the viewport.
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // ---- routing logic: decides the next stage after intake ----
+  // TODAY: single combined form, so every track goes straight to thank-you.
+  // FUTURE: when the form is split and Ruhan is live, flip USE_BUILDER_STAGE
+  // to true. Builders will then route through the assessment stage first.
+  var USE_BUILDER_STAGE = false;
+
+  function advanceFrom(stageName) {
+    if (stageName === "form") {
+      if (USE_BUILDER_STAGE && state.track === "builder") {
+        showStage("builderAssessment");
+        initBuilderAssessment();
+      } else {
+        showStage("thankyou");
+      }
+    } else if (stageName === "builderAssessment") {
+      showStage("thankyou");
+    }
+  }
+
+  // ---- Tally track extraction ----------------------------------------
+  // Tally's submission payload shape can vary by form/version. Rather than
+  // hard-code a field id, we scan the payload for the answer to the track
+  // question by matching its label/text loosely. Adjust TRACK_FIELD_HINT if
+  // your track question uses different wording.
+  var TRACK_FIELD_HINT = /track|builder|researcher|artist/i;
+
+  function extractTrack(payload) {
+    if (!payload) return null;
+    try {
+      var fields = payload.fields || payload.data || [];
+      for (var i = 0; i < fields.length; i++) {
+        var f = fields[i];
+        var label = (f.label || f.title || f.key || "") + "";
+        var value = f.value;
+        // Normalize the answer's value into a string we can test.
+        var valStr = "";
+        if (typeof value === "string") valStr = value;
+        else if (Array.isArray(value)) valStr = value.join(" ");
+        else if (value && typeof value === "object") {
+          valStr = Object.keys(value).map(function (k) { return value[k]; }).join(" ");
+        }
+        var haystack = (label + " " + valStr);
+        if (TRACK_FIELD_HINT.test(haystack)) {
+          if (/builder/i.test(valStr))    return "builder";
+          if (/researcher/i.test(valStr)) return "researcher";
+          if (/artist/i.test(valStr))     return "artist";
+        }
+      }
+    } catch (e) { /* fall through to null */ }
+    return null;
+  }
+
+  function extractCandidateId(payload) {
+    if (!payload) return null;
+    // Tally usually includes respondentId / submissionId; prefer those.
+    return payload.respondentId || payload.submissionId || payload.formId || null;
+  }
+
+  // ---- Builder assessment stage (stub-aware) -------------------------
+  function initBuilderAssessment() {
+    // When Ruhan's iframe is added (id="builder-assessment"), post init to it.
+    var frame = document.getElementById("builder-assessment");
+    if (!frame) return; // stub: nothing mounted yet
+    frame.addEventListener("load", function () {
+      frame.contentWindow.postMessage({
+        source: "future-fellows-apply",
+        type: "assessment:init",
+        payload: {
+          candidateId: state.candidateId,
+          track: "builder"
+        }
+      }, "*"); // TODO: tighten target origin to Ruhan's route once known
+    });
+  }
+
+  // ---- unified message listener --------------------------------------
+  // Handles BOTH Tally's submit event and Ruhan's assessment-complete event.
+  //
+  // IMPORTANT: Tally posts its events as a JSON *string*, not an object.
+  // So we must normalize e.data (which may be a string or an object) before
+  // inspecting it. The previous version bailed out on strings and therefore
+  // never caught Tally.FormSubmitted.
+  function normalizeMessage(raw) {
+    if (raw == null) return null;
+    if (typeof raw === "object") return raw;
+    if (typeof raw === "string") {
+      // Only attempt to parse things that look like JSON objects.
+      var s = raw.trim();
+      if (s.charAt(0) !== "{") return null;
+      try { return JSON.parse(s); } catch (err) { return null; }
+    }
+    return null;
+  }
+
+  window.addEventListener("message", function (e) {
+    var data = normalizeMessage(e && e.data);
+    if (!data || typeof data !== "object") return;
+
+    // (a) Tally form submitted. Match defensively: the event field is
+    // normally "Tally.FormSubmitted" but we also accept any event string
+    // that ends in "FormSubmitted" in case Tally tweaks the prefix.
+    var ev = data.event || (data.data && data.data.event) || "";
+    if (typeof ev === "string" && /FormSubmitted$/.test(ev)) {
+      state.tallyPayload = data.payload || (data.data && data.data.payload) || null;
+      state.track = extractTrack(state.tallyPayload);
+      state.candidateId = extractCandidateId(state.tallyPayload);
+      advanceFrom("form");
+      return;
+    }
+
+    // (b) Ruhan's assessment completed — strict source check
+    if (data.source === "future-fellows-assessment" &&
+        data.type === "assessment:complete") {
+      state.assessmentResult = (data.payload && data.payload.result) || null;
+      advanceFrom("builderAssessment");
+      return;
+    }
+  });
+
+  // ---- Tally embed loader (official snippet, adapted) -----------------
+  // Loads embed.js, initializes embeds, then hides the loading placeholder.
+  (function loadTally() {
+    var d = document,
+        w = "https://tally.so/widgets/embed.js",
+        v = function () {
+          if (typeof Tally !== "undefined") {
+            Tally.loadEmbeds();
+          } else {
+            d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function (e) {
+              e.src = e.dataset.tallySrc;
+            });
+          }
+          var loading = d.getElementById("form-loading");
+          if (loading) loading.style.display = "none";
+        };
+    if (typeof Tally !== "undefined") {
+      v();
+    } else if (d.querySelector('script[src="' + w + '"]') == null) {
+      var s = d.createElement("script");
+      s.src = w;
+      s.onload = v;
+      s.onerror = v;
+      d.body.appendChild(s);
+    }
+  })();
+
+})();
+</script>
+
+</body>
+</html>
