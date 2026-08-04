@@ -126,9 +126,8 @@ re-sourcing.
 Every entry is about a real person, some of them minors. Two standards:
 
 **Consent before publish**, covering name, photograph, and the story as written.
-Consent records live **outside this repo** — in Drive, with deliberate access.
-Never a field on the entry, never a file here. This repo is public and is a
-deploy pipeline; neither is an appropriate home for records about minors.
+Rory obtains approval by email and saves the record in Drive. Consent records
+live **outside this repo** — never a field on the entry, never a file here.
 
 **A claim about a named company is only as good as its source.** The subject
 confirming their own history is strong evidence. A screening-call transcript is
@@ -165,10 +164,6 @@ drifts and has been confidently wrong; check the repo rather than recalling it.
 
 ## Known gaps
 
-- Consent records are currently kept by Rory in email and a Google Doc, not in
-  this repo. `consent-log.md` doesn't exist yet; it may become the system of
-  record later. If it does, that move should wait until this repo is private —
-  while it's public, a consent log here would publish records about minors.
 - Ruhan's photo is below the 600×700 spec.
 - A third case study (Tarun Mahesh) is drafted in the Drive "Case Studies" doc
   but not built. Its draft has a date inconsistency — an IEEE paper "in November
