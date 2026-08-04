@@ -165,8 +165,10 @@ drifts and has been confidently wrong; check the repo rather than recalling it.
 
 ## Known gaps
 
-- `consent-log.md` does not exist. Ruhan's consent is undocumented; Dylan's
-  lives only in a 2026-08-03 email. Needs a Drive home, not a repo file.
+- Consent records are currently kept by Rory in email and a Google Doc, not in
+  this repo. `consent-log.md` doesn't exist yet; it may become the system of
+  record later. If it does, that move should wait until this repo is private —
+  while it's public, a consent log here would publish records about minors.
 - Ruhan's photo is below the 600×700 spec.
 - A third case study (Tarun Mahesh) is drafted in the Drive "Case Studies" doc
   but not built. Its draft has a date inconsistency — an IEEE paper "in November
