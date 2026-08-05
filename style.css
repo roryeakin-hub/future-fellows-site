@@ -164,41 +164,11 @@ a:focus-visible, button:focus-visible {
   margin: 2.6rem 0 0.9rem;
 }
 
-.prose .break-line {
-  font-family: "Playfair Display", Georgia, serif;
-  font-style: italic;
-  font-size: 1.35rem;
-  line-height: 1.5;
-  color: var(--ink);
-  margin: 2.4rem 0;
-  padding-left: 1.4rem;
-  border-left: 2px solid var(--teal);
-}
-
 .rule {
   max-width: var(--measure);
   margin: 3.5rem auto;
   border: 0;
   border-top: 1px solid var(--hairline);
-}
-
-/* Beliefs */
-
-.beliefs { list-style: none; margin: 2rem 0; }
-.beliefs li {
-  padding: 1.4rem 0;
-  border-top: 1px solid var(--hairline);
-}
-.beliefs li:last-child { border-bottom: 1px solid var(--hairline); }
-.beliefs .belief-name {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--teal-text);
-  display: block;
-  margin-bottom: 0.4rem;
 }
 
 /* Signature */
