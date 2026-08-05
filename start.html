@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start a project — Future Fellows</title>
+<meta name="description" content="Tell us about one project you'd like done. We'll scope it with you and match a vetted Fellow.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<!-- Shared site stylesheet loaded FIRST so its :root, body, nav, footer, .btn,
+     .eyebrow rules apply; page-specific styles below intentionally override
+     only where needed. Do not redefine :root/body/.eyebrow/footer/.btn here —
+     those are owned by /style.css for cross-page consistency. -->
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<style>
+/* Page-specific styles for the employer intake flow only. Shared tokens
+   (colors, body type, nav, footer, .btn, .eyebrow) come from /style.css.
+   Mirrors /apply.html so the two intake flows stay visually identical. */
+
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vh, 5rem) clamp(1.25rem, 4vw, 1.5rem) 5rem;
+}
+
+/* ---------- stage visibility: only the active stage is shown ---------- */
+.stage { display: none; }
+.stage.is-active { display: block; }
+
+/* ---------- form stage ---------- */
+.form-intro { margin-bottom: 2.5rem; }
+.form-intro .eyebrow {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-text);
+  margin-bottom: 1rem;
+}
+.form-intro h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.form-intro p {
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+/* Tally iframe: transparent + dynamic height come from the embed params;
+   this just removes default iframe chrome and lets it span the column. */
+iframe[data-tally-src] {
+  width: 100%;
+  border: 0;
+  margin: 0;
+}
+
+/* Simple loading state shown until the Tally embed initializes. */
+.form-loading {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 2rem 0;
+}
+
+/* ---------- thank-you stage (.eyebrow + footer inherit from /style.css) ---------- */
+h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+}
+.lede {
+  font-size: 1.15rem;
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+}
+.section { margin-bottom: 2.75rem; }
+.section h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.9rem;
+}
+.section p { font-size: 1.02rem; color: var(--ink); }
+.section p + p { margin-top: 0.9rem; }
+.next-steps {
+  background: var(--bg-2);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 1.6rem 1.7rem;
+}
+.next-steps ol { padding-left: 1.2rem; margin-top: 0.8rem; }
+.next-steps li { margin-bottom: 0.6rem; }
+.next-steps li:last-child { margin-bottom: 0; }
+.contact-line {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 1.1rem;
+}
+.contact-line a { font-weight: 600; }
+
+/* Closing link out to case studies, foot of the thank-you stage. */
+.see-work {
+  border-top: 1px solid var(--hairline);
+  padding-top: 2.5rem;
+}
+.see-work h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.6rem;
+}
+.see-work p {
+  font-size: 1.02rem;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="wordmark" href="/">Future Fellows<span>.</span></a>
+  <div class="nav-links">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a class="btn" href="/start.html">Start<span class="btn-tail"> a project</span></a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================================================= -->
+  <!-- STAGE 1 — TALLY INTAKE FORM                                    -->
+  <!-- ============================================================= -->
+  <section class="stage is-active" id="stage-form" data-stage="form">
+    <div class="form-intro">
+      <div class="eyebrow">Start a project</div>
+      <h1>Tell us about the work.</h1>
+      <p>A few questions to get started. We&rsquo;ll come back to you to scope it.</p>
+    </div>
+
+    <div class="form-loading" id="form-loading">Loading the form&hellip;</div>
+
+    <iframe
+      data-tally-src="https://tally.so/embed/yPbe76?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+      loading="lazy"
+      width="100%"
+      height="500"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      title="Future Fellows employer project intake"
+      id="tally-intake"></iframe>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- STAGE 2 — THANK YOU                                            -->
+  <!-- ============================================================= -->
+  <section class="stage" id="stage-thankyou" data-stage="thankyou">
+
+    <div class="eyebrow">Request received</div>
+    <h1>Thank you.</h1>
+    <p class="lede">We&rsquo;ve got your project and we&rsquo;ll be in touch shortly.</p>
+
+    <div class="section next-steps">
+      <h2>What happens next</h2>
+      <ol>
+        <li>We read what you sent and come back to you by email, usually within a few days.</li>
+        <li>If it looks like a fit, we set up a short call to scope the deliverable and timeline. Thirty minutes of your time.</li>
+        <li>We match a vetted Fellow whose demonstrated work fits, and show you why. You decide whether to go ahead.</li>
+      </ol>
+      <p class="contact-line">Questions in the meantime? Reach Rory directly at <a href="mailto:info@joinfellows.org">info@joinfellows.org</a>.</p>
+    </div>
+
+    <div class="see-work">
+      <h2>In the meantime</h2>
+      <p>Examples of young people already doing this kind of work.</p>
+      <a class="btn btn-ghost" href="/case-studies.html">See case studies</a>
+    </div>
+  </section>
+
+</div><!-- /.wrap -->
+
+<!-- Shared site footer — constant chrome, shown across all stages.
+     Markup and legal string match the other pages exactly. -->
+<footer>
+  <nav class="footer-nav" aria-label="Secondary">
+    <a href="/students.html">For students</a>
+    <a href="/employers.html">For employers</a>
+    <a href="/case-studies.html">Case studies</a>
+    <a href="/team.html">Team</a>
+  </nav>
+  <div class="footer-meta">
+    <div>Future Fellows Inc. &middot; a California registered nonprofit public benefit corporation</div>
+    <div><a href="mailto:info@joinfellows.org">info@joinfellows.org</a></div>
+  </div>
+</footer>
+
+<!-- ================================================================= -->
+<!-- STAGE CONTROLLER                                                   -->
+<!-- ================================================================= -->
+<script>
+(function () {
+  "use strict";
+
+  var stages = {
+    form:     document.getElementById("stage-form"),
+    thankyou: document.getElementById("stage-thankyou")
+  };
+
+  function showStage(name) {
+    Object.keys(stages).forEach(function (key) {
+      stages[key].classList.toggle("is-active", key === name);
+    });
+    // Scroll to top so the new stage starts at the top of the viewport.
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // IMPORTANT: Tally posts its events as a JSON *string*, not an object, so
+  // normalize before inspecting. Treating e.data as an object silently misses
+  // Tally.FormSubmitted and the visitor is left staring at Tally's own screen.
+  function normalizeMessage(raw) {
+    if (raw == null) return null;
+    if (typeof raw === "object") return raw;
+    if (typeof raw === "string") {
+      var s = raw.trim();
+      if (s.charAt(0) !== "{") return null;
+      try { return JSON.parse(s); } catch (err) { return null; }
+    }
+    return null;
+  }
+
+  window.addEventListener("message", function (e) {
+    var data = normalizeMessage(e && e.data);
+    if (!data || typeof data !== "object") return;
+
+    // Match defensively: the event field is normally "Tally.FormSubmitted",
+    // but accept any event string ending in "FormSubmitted".
+    var ev = data.event || (data.data && data.data.event) || "";
+    if (typeof ev === "string" && /FormSubmitted$/.test(ev)) {
+      showStage("thankyou");
+    }
+  });
+
+  // ---- Tally embed loader (official snippet, adapted) -----------------
+  (function loadTally() {
+    var d = document,
+        w = "https://tally.so/widgets/embed.js",
+        v = function () {
+          if (typeof Tally !== "undefined") {
+            Tally.loadEmbeds();
+          } else {
+            d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function (e) {
+              e.src = e.dataset.tallySrc;
+            });
+          }
+          var loading = d.getElementById("form-loading");
+          if (loading) loading.style.display = "none";
+        };
+    if (typeof Tally !== "undefined") {
+      v();
+    } else if (d.querySelector('script[src="' + w + '"]') == null) {
+      var s = d.createElement("script");
+      s.src = w;
+      s.onload = v;
+      s.onerror = v;
+      d.body.appendChild(s);
+    }
+  })();
+
+})();
+</script>
+
+</body>
+</html>
